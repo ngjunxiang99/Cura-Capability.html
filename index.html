@@ -1,645 +1,693 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Menu, 
-  X, 
-  ChevronRight, 
-  ChevronDown, 
-  Clock, 
-  ShieldCheck, 
-  Target, 
-  Award, 
-  MapPin, 
-  Users, 
-  ArrowRight,
-  Stethoscope,
-  CheckCircle2,
-  Info
-} from 'lucide-react';
-
-// --- Theme Constants ---
-const COLORS = {
-  bg: 'bg-[#FAF9F6]', // Warm White
-  charcoal: 'text-[#2D2D2D]',
-  deepGreen: 'bg-[#1B4332]',
-  deepGreenText: 'text-[#1B4332]',
-  steelBlue: 'text-[#4A6D8C]',
-  ctaRed: 'bg-[#C8102E]', // Sophisticated Scarlet
-  border: 'border-[#E5E4E2]'
-};
-
-// --- Components ---
-
-const Section = ({ children, className = "", id = "" }) => (
-  <section id={id} className={`py-16 md:py-24 px-6 md:px-12 ${className}`}>
-    <div className="max-w-[1120px] mx-auto">
-      {children}
-    </div>
-  </section>
-);
-
-const Button = ({ children, variant = 'primary', className = "", onClick }) => {
-  const baseStyles = "px-8 py-4 transition-all duration-300 text-sm tracking-widest uppercase font-medium";
-  const variants = {
-    primary: `${COLORS.ctaRed} text-white hover:bg-opacity-90 shadow-sm`,
-    secondary: `border border-[#2D2D2D] ${COLORS.charcoal} hover:bg-[#2D2D2D] hover:text-white`,
-    outline: `border border-[#E5E4E2] text-[#2D2D2D] hover:bg-[#FAF9F6]`,
-    ghost: `text-[#2D2D2D] hover:underline underline-offset-4`
-  };
-  
-  return (
-    <button onClick={onClick} className={`${baseStyles} ${variants[variant]} ${className}`}>
-      {children}
-    </button>
-  );
-};
-
-const Accordion = ({ title, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div className={`border-b ${COLORS.border} py-4`}>
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center text-left group"
-      >
-        <span className="text-lg font-serif italic">{title}</span>
-        <ChevronDown className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} size={20} />
-      </button>
-      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[1000px] mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="text-sm leading-relaxed text-gray-600 pb-4">
-          {children}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// --- Page: Home ---
-const HomePage = ({ navigate }) => (
-  <>
-    {/* Hero Section */}
-    <div className="relative h-screen w-full flex items-center overflow-hidden">
-      <img 
-        src="Cura Recovery Lounge.png" 
-        className="absolute inset-0 w-full h-full object-cover brightness-75 scale-105"
-        alt="Luxury Golf Lounge"
-      />
-      <div className="relative z-10 w-full px-6 md:px-24">
-        <div className="max-w-2xl text-white">
-          <p className="uppercase tracking-[0.4em] text-xs mb-4 opacity-90">Clinical Care. Curated.</p>
-          <h1 className="text-5xl md:text-7xl font-serif mb-8 leading-tight">
-            Redefining Event <br/><span className="italic">Recovery.</span>
-          </h1>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button onClick={() => navigate('contact')}>Request a Proposal</Button>
-            <Button variant="outline" className="text-white border-white bg-transparent" onClick={() => navigate('packages')}>
-              View Packages
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {/* Editorial Block */}
-    <Section className="bg-white text-center">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl md:text-4xl font-serif mb-6 italic">The Missing Piece in Corporate Hospitality.</h2>
-        <p className="text-lg leading-relaxed text-gray-600 mb-8">
-          Corporate events invest heavily in F&B, gift bags, and venues. Yet, the physical toll on players—fatigue, stiffness, and heat—is often addressed with a basic solution. Your VIPs deserve a recovery experience that matches the premium standard of the rest of your event.
-        </p>
-        <div className="inline-block py-2 border-y border-[#1B4332] text-[#1B4332] uppercase tracking-widest text-sm font-bold">
-          NOT a medical tent. A Recovery Sanctuary.
-        </div>
-      </div>
-    </Section>
-
-    {/* CURA Advantage */}
-    <Section>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-        <div className="space-y-4">
-          <div className="w-12 h-12 flex items-center justify-center border border-[#1B4332] rounded-full">
-            <Award className="text-[#1B4332]" size={20} />
-          </div>
-          <h3 className="text-xl font-serif">1. ELEVATE</h3>
-          <p className="text-sm text-gray-600 leading-relaxed">
-            The Executive Recharge Lounge. We transform a standard break into a luxury amenity. Whether in the clubhouse or on-course, we provide a concierge-level experience.
-          </p>
-        </div>
-        <div className="space-y-4">
-          <div className="w-12 h-12 flex items-center justify-center border border-[#1B4332] rounded-full">
-            <Target className="text-[#1B4332]" size={20} />
-          </div>
-          <h3 className="text-xl font-serif">2. PERFORMANCE</h3>
-          <p className="text-sm text-gray-600 leading-relaxed">
-            Keeping players at their best. Golf is an endurance game. Our protocols maintain physical capability and mental capacity, ensuring guests stay sharp.
-          </p>
-        </div>
-        <div className="space-y-4">
-          <div className="w-12 h-12 flex items-center justify-center border border-[#1B4332] rounded-full">
-            <Clock className="text-[#1B4332]" size={20} />
-          </div>
-          <h3 className="text-xl font-serif">3. PRECISION</h3>
-          <p className="text-sm text-gray-600 leading-relaxed">
-            High-impact recovery. We replace generic "relaxation" with targeted techniques, maximizing the short window guests have for deeper results.
-          </p>
-        </div>
-      </div>
-    </Section>
-
-    {/* Packages Preview */}
-    <Section className="bg-[#FAF9F6]">
-      <div className="flex justify-between items-end mb-12">
-        <div>
-          <h2 className="text-3xl font-serif italic">Three Curated Experiences.</h2>
-          <p className="text-gray-500 uppercase tracking-widest text-xs mt-2">Tailored Recovery Solutions</p>
-        </div>
-        <Button variant="ghost" className="hidden md:block" onClick={() => navigate('packages')}>See full details <ArrowRight className="inline ml-2" size={16}/></Button>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {[
-          { name: 'Package A', title: 'Executive Lounge', focus: 'Guest Experience & Comfort', staff: '2x Recovery Specialists' },
-          { name: 'Package B', title: 'Physio-Supported', focus: 'Clinical Oversight + Performance', staff: '1x AHPC Physio + 1x Specialist', popular: true },
-          { name: 'Package C', title: 'Physio Concierge', focus: 'VIP Expectations & Peak Demand', staff: '2x AHPC Physiotherapists' }
-        ].map((pkg) => (
-          <div key={pkg.name} className="bg-white p-8 border border-[#E5E4E2] flex flex-col h-full relative group">
-            {pkg.popular && <div className="absolute -top-3 left-8 bg-[#1B4332] text-white text-[10px] px-3 py-1 uppercase tracking-widest">Recommended</div>}
-            <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-2">{pkg.name}</p>
-            <h4 className="text-2xl font-serif mb-4">{pkg.title}</h4>
-            <p className="text-xs font-bold text-[#1B4332] mb-6 uppercase tracking-wider">{pkg.focus}</p>
-            <p className="text-sm text-gray-600 mb-8 border-l-2 border-[#E5E4E2] pl-4">{pkg.staff}</p>
-            <button onClick={() => navigate('packages')} className="mt-auto flex items-center text-xs uppercase tracking-widest font-bold hover:text-[#C8102E] transition-colors">
-              Package Details <ChevronRight size={14} className="ml-1" />
-            </button>
-          </div>
-        ))}
-      </div>
-    </Section>
-
-    {/* How It Works */}
-    <Section>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        {[
-          { step: '01', title: 'Scoping Call', desc: 'A 10-minute brief to align on venue and VIP flow.' },
-          { step: '02', title: 'Quote & Confirm', desc: 'Transparent pricing and date security.' },
-          { step: '03', title: 'Checklist', desc: 'Final logistics review for seamless integration.' },
-          { step: '04', title: 'Delivery', desc: 'Professional setup and expert execution.' }
-        ].map(item => (
-          <div key={item.step} className="border-t border-[#E5E4E2] pt-6">
-            <span className="text-xs font-serif italic text-gray-400 block mb-2">{item.step}</span>
-            <h4 className="font-bold text-sm uppercase tracking-widest mb-2">{item.title}</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
-          </div>
-        ))}
-      </div>
-    </Section>
-
-    {/* Final CTA */}
-    <div className="bg-[#1B4332] py-20 px-6 text-center text-white">
-      <h2 className="text-3xl md:text-5xl font-serif italic mb-8">Ready to elevate your guest experience?</h2>
-      <Button variant="primary" onClick={() => navigate('contact')}>Request a Proposal Today</Button>
-      <p className="mt-6 text-xs uppercase tracking-widest opacity-60">Singapore's Premier Event Recovery Partner</p>
-    </div>
-  </>
-);
-
-// --- Page: Golf Days ---
-const GolfDaysPage = ({ navigate }) => (
-  <div className="pt-20">
-    <Section className="pb-12">
-      <h1 className="text-4xl md:text-6xl font-serif italic mb-6">Seamless Integration Across the Course.</h1>
-      <p className="text-lg text-gray-600 max-w-2xl">
-        We bridge the gap between B2B networking and physical capability. CURA integrates directly into the flow of your corporate golf day, ensuring your VIPs are primed to play and ready to network.
-      </p>
-    </Section>
-
-    {/* Timeline Component */}
-    <Section className="bg-white">
-      <div className="space-y-16">
-        {[
-          { 
-            time: 'Registration', 
-            title: 'The Tee Box', 
-            desc: 'Warm-up activation zones to prevent injury on the first drive. Focusing on energy and physical readiness.',
-            icon: <MapPin size={24} />
-          },
-          { 
-            time: 'The Turn', 
-            title: 'Halfway Point', 
-            desc: 'Rapid mobility interventions to keep players loose for the back nine. Speed, relief, and impact.',
-            icon: <Clock size={24} />
-          },
-          { 
-            time: 'Post-Round', 
-            title: 'The Clubhouse Lounge', 
-            desc: 'High-touch recovery suites for post-game networking. The ultimate finish to the day before dinner.',
-            icon: <Users size={24} />
-          }
-        ].map((point, idx) => (
-          <div key={idx} className="flex flex-col md:flex-row gap-8 items-start">
-            <div className="w-full md:w-1/4">
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#1B4332]">{point.time}</span>
-              <div className="h-px bg-[#E5E4E2] w-full mt-4"></div>
-            </div>
-            <div className="w-full md:w-3/4 flex gap-6">
-              <div className="p-3 bg-[#FAF9F6] rounded-full h-fit text-[#1B4332]">
-                {point.icon}
-              </div>
-              <div>
-                <h3 className="text-2xl font-serif mb-3 italic">{point.title}</h3>
-                <p className="text-gray-600 max-w-xl leading-relaxed">{point.desc}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Section>
-
-    {/* Placement & Flow */}
-    <Section className="bg-[#FAF9F6]">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="bg-white p-10 border border-[#E5E4E2]">
-          <h4 className="text-xs font-bold uppercase tracking-widest mb-6">Operating Flow</h4>
-          <ul className="space-y-4">
-            <li className="flex items-start gap-3 text-sm text-gray-600">
-              <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
-              <span><strong>VIP Queue Management:</strong> Dedicated slotting to minimize wait times.</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm text-gray-600">
-              <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
-              <span><strong>On-Course Stations:</strong> Self-contained marquee setups with premium branding.</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm text-gray-600">
-              <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
-              <span><strong>Session Format:</strong> 10–20 minute rapid interventions optimized for event schedules.</span>
-            </li>
-          </ul>
-        </div>
-        <div className="bg-[#1B4332] p-10 text-white flex flex-col justify-center">
-          <h4 className="text-xs font-bold uppercase tracking-widest mb-6 opacity-70">Sponsor Activation</h4>
-          <p className="font-serif text-xl mb-6">Transform a health benefit into a co-branded sponsorship opportunity.</p>
-          <ul className="text-sm space-y-2 opacity-90 mb-8">
-            <li>• Custom branded lounge signage</li>
-            <li>• Co-branded service menus</li>
-            <li>• Branded technician uniforms</li>
-          </ul>
-          <Button variant="outline" className="text-white border-white" onClick={() => navigate('contact')}>Discuss Activation</Button>
-        </div>
-      </div>
-    </Section>
-  </div>
-);
-
-// --- Page: Packages ---
-const PackagesPage = ({ navigate }) => (
-  <div className="pt-20">
-    <Section>
-      <p className="uppercase tracking-[0.3em] text-xs text-gray-400 mb-4">Tailored Recovery Solutions</p>
-      <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Three Curated Experiences. <br/>One Standard of Care.</h1>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-        {/* Package A */}
-        <div className="border border-[#E5E4E2] p-8 flex flex-col bg-white">
-          <span className="text-[10px] uppercase tracking-widest text-gray-400">Non-Clinical</span>
-          <h3 className="text-2xl font-serif my-4">Package A: Executive Lounge</h3>
-          <p className="text-sm text-gray-600 mb-6">Focus: Guest Experience & Comfort</p>
-          <div className="space-y-4 text-sm text-gray-600 mb-8">
-            <p className="font-bold border-b pb-2">Staffing Model:</p>
-            <p>2x Recovery Specialists</p>
-            <p className="font-bold border-b pb-2">Guest Experience:</p>
-            <ul className="space-y-2">
-              <li>• Recovery-focused soft tissue work</li>
-              <li>• Assisted stretching</li>
-              <li>• Mobility support</li>
-            </ul>
-          </div>
-          <p className="text-xs italic text-gray-400 mt-auto">Best for: Hospitality marquees & relaxation zones.</p>
-        </div>
-
-        {/* Package B */}
-        <div className="border-2 border-[#1B4332] p-8 flex flex-col bg-white relative shadow-xl">
-          <div className="absolute -top-3 left-8 bg-[#1B4332] text-white text-[10px] px-3 py-1 uppercase tracking-widest">Recommended</div>
-          <span className="text-[10px] uppercase tracking-widest text-gray-400">Clinical Oversight</span>
-          <h3 className="text-2xl font-serif my-4">Package B: Physio-Supported</h3>
-          <p className="text-sm text-gray-600 mb-6">Focus: Clinical Oversight + Performance</p>
-          <div className="space-y-4 text-sm text-gray-600 mb-8">
-            <p className="font-bold border-b pb-2">Staffing Model:</p>
-            <p>1x AHPC Physio + 1x Specialist</p>
-            <p className="font-bold border-b pb-2">Guest Experience:</p>
-            <ul className="space-y-2">
-              <li>• All Package A Services</li>
-              <li>• Physio support for MSK concerns</li>
-              <li>• Activity-Specific Guidance</li>
-              <li>• Performance readiness & recovery</li>
-            </ul>
-          </div>
-          <p className="text-xs italic text-[#1B4332] mt-auto">Best for: High-level corporate golf days.</p>
-        </div>
-
-        {/* Package C */}
-        <div className="border border-[#E5E4E2] p-8 flex flex-col bg-white">
-          <span className="text-[10px] uppercase tracking-widest text-gray-400">Enhanced Clinical</span>
-          <h3 className="text-2xl font-serif my-4">Package C: Physio Concierge</h3>
-          <p className="text-sm text-gray-600 mb-6">Focus: VIP Expectations & Peak Demand</p>
-          <div className="space-y-4 text-sm text-gray-600 mb-8">
-            <p className="font-bold border-b pb-2">Staffing Model:</p>
-            <p>2x AHPC Physiotherapists</p>
-            <p className="font-bold border-b pb-2">Guest Experience:</p>
-            <ul className="space-y-2">
-              <li>• All Package B Services</li>
-              <li>• Reduced bottleneck for VIPs</li>
-              <li>• High physiotherapy capacity</li>
-              <li>• Includes Aquilo Cryo-Compression set</li>
-            </ul>
-          </div>
-          <p className="text-xs italic text-gray-400 mt-auto">Best for: Professional-grade events & elite VIPs.</p>
-        </div>
-      </div>
-
-      {/* Service Tiers & Scope */}
-      <div className="max-w-3xl mx-auto">
-        <h4 className="text-xs font-bold uppercase tracking-widest mb-8 border-b pb-4">Service Tiers & Scope</h4>
-        <Accordion title="Tier 1: Clinical Concierge (Physiotherapy)">
-          Our licensed AHPC Physiotherapists provide evidence-based musculoskeletal support. Scope includes: 
-          MSK screening, manual therapy for acute stiffness, clinical stretching, and performance-specific mobility drills. 
-          Managed strictly within the Singapore Physiotherapy Scope of Practice.
-        </Accordion>
-        <Accordion title="Tier 2: Performance & Recovery Support">
-          Our Recovery Specialists focus on comfort and wellness. Scope includes: 
-          Guided foam rolling, compression therapy management, assisted static stretching, and general soft-tissue relief.
-        </Accordion>
-        <Accordion title="Professional Boundaries">
-          We are Performance Partners, not Emergency Medics. CURA manages player comfort and physical capability. 
-          Any clinical emergency or acute injury beyond the scope of recovery is immediately escalated to the venue's EMS or on-site medical team.
-        </Accordion>
-      </div>
-    </Section>
-  </div>
-);
-
-// --- Page: Standards & Governance ---
-const StandardsPage = () => (
-  <div className="pt-20">
-    <Section>
-      <div className="max-w-3xl">
-        <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Quietly Confident. Rigorously Governed.</h1>
-        <p className="text-lg text-gray-600 mb-12">
-          CURA operates at the intersection of elite performance and clinical safety. For event organizers, we provide the peace of mind that recovery is handled with accountability and discretion.
-        </p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16">
-          <div className="space-y-6">
-            <h4 className="font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-              <ShieldCheck className="text-[#1B4332]" /> Licensed & Insured
-            </h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Unlike freelance marketplaces, CURA provides full accountability. Our Physiotherapists are AHPC-Registered with comprehensive Professional Liability Coverage.
-            </p>
-          </div>
-          <div className="space-y-6">
-            <h4 className="font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-              <Stethoscope className="text-[#1B4332]" /> Defined Scope
-            </h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              We operate strictly within the Singapore Physiotherapy Scope of Practice. All interventions are evidence-based, safe, and curated for the event environment.
-            </p>
-          </div>
-          <div className="space-y-6">
-            <h4 className="font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-              <Info className="text-[#1B4332]" /> Escalation Coordination
-            </h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Clear critical boundaries. We manage comfort; emergencies are identified and immediately escalated to venue EMS using established communication protocols.
-            </p>
-          </div>
-          <div className="space-y-6">
-            <h4 className="font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-              <CheckCircle2 className="text-[#1B4332]" /> PDPA & Discretion
-            </h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              We adhere to strict PDPA standards. Our team is trained to operate with absolute discretion, ensuring VIP privacy and professional conduct at all times.
-            </p>
-          </div>
-        </div>
-      </div>
-    </Section>
-  </div>
-);
-
-// --- Page: About ---
-const AboutPage = () => (
-  <div className="pt-20">
-    <Section>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        <div>
-          <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Clinical Care. <br/>Curated.</h1>
-          <p className="text-lg text-gray-600 leading-relaxed mb-6">
-            CURA was born from a simple observation: corporate event recovery was often an afterthought—a basic massage table in a corner. 
-          </p>
-          <p className="text-gray-600 leading-relaxed">
-            We saw the gap between premium hospitality and professional clinical care. Our mission is to bridge that gap, providing a recovery sanctuary that enhances performance and validates the premium nature of your event.
-          </p>
-        </div>
-        <div className="bg-[#E5E4E2] aspect-square relative">
-           <img 
-            src="Cura Recovery Lounge.png" 
-            className="absolute inset-0 w-full h-full object-cover grayscale opacity-80"
-            alt="Physiotherapy hands"
-          />
-        </div>
-      </div>
-    </Section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CURA | Clinical Care. Curated.</title>
     
-    <Section className="bg-[#1B4332] text-white">
-      <h3 className="text-center font-serif text-3xl italic mb-12">The Pillars of CURA</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-        <div>
-          <h4 className="text-lg uppercase tracking-widest mb-4">Elevate</h4>
-          <p className="text-sm opacity-80">Transforming the standard break into a luxury amenity.</p>
-        </div>
-        <div>
-          <h4 className="text-lg uppercase tracking-widest mb-4">Performance</h4>
-          <p className="text-sm opacity-80">Maintaining physical and mental capacity for the long game.</p>
-        </div>
-        <div>
-          <h4 className="text-lg uppercase tracking-widest mb-4">Precision</h4>
-          <p className="text-sm opacity-80">Targeted, high-impact protocols for efficient recovery.</p>
-        </div>
-      </div>
-    </Section>
-  </div>
-);
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- React & ReactDOM (Development versions) -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Manrope"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar to match luxury aesthetic */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FAF9F6; }
+        ::-webkit-scrollbar-thumb { background: #1B4332; border-radius: 4px; }
+        body { background-color: #FAF9F6; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
 
-// --- Page: Contact ---
-const ContactPage = () => {
-  const [submitted, setSubmitted] = useState(false);
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+        // --- ICONS (Inline to prevent import errors) ---
+        const Icon = ({ children, size = 24, className = "" }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
+        );
+        const MenuIcon = (p) => <Icon {...p}><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></Icon>;
+        const X = (p) => <Icon {...p}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></Icon>;
+        const ChevronRight = (p) => <Icon {...p}><polyline points="9 18 15 12 9 6"/></Icon>;
+        const ChevronDown = (p) => <Icon {...p}><polyline points="6 9 12 15 18 9"/></Icon>;
+        const Clock = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></Icon>;
+        const ShieldCheck = (p) => <Icon {...p}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></Icon>;
+        const Target = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></Icon>;
+        const Award = (p) => <Icon {...p}><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></Icon>;
+        const MapPin = (p) => <Icon {...p}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></Icon>;
+        const Users = (p) => <Icon {...p}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></Icon>;
+        const ArrowRight = (p) => <Icon {...p}><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></Icon>;
+        const Stethoscope = (p) => <Icon {...p}><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v6"/><path d="M16 15v6"/><circle cx="12" cy="22" r="2"/></Icon>;
+        const CheckCircle2 = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></Icon>;
+        const Info = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></Icon>;
 
-  if (submitted) {
-    return (
-      <Section className="pt-40 text-center min-h-[70vh]">
-        <h2 className="text-4xl font-serif italic mb-4">Thank you.</h2>
-        <p className="text-gray-600">Your request has been received. Our team will contact you within 24 hours.</p>
-      </Section>
-    );
-  }
+        // --- Theme Constants ---
+        const COLORS = {
+            bg: 'bg-[#FAF9F6]', // Warm White
+            charcoal: 'text-[#2D2D2D]',
+            deepGreen: 'bg-[#1B4332]',
+            deepGreenText: 'text-[#1B4332]',
+            steelBlue: 'text-[#4A6D8C]',
+            ctaRed: 'bg-[#C8102E]', // Sophisticated Scarlet
+            border: 'border-[#E5E4E2]'
+        };
 
-  return (
-    <div className="pt-20">
-      <Section>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          <div>
-            <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Request a Proposal.</h1>
-            <p className="text-gray-600 mb-8">
-              Every event is unique. Please provide a few details and we will prepare a bespoke proposal for your review.
-            </p>
-            <div className="space-y-4 text-sm uppercase tracking-widest">
-              <p className="flex items-center gap-3"><MapPin size={16} /> Singapore Based</p>
-              <p className="flex items-center gap-3"><Clock size={16} /> Net 14 Days Payment</p>
+        // --- Components ---
+        const Section = ({ children, className = "", id = "" }) => (
+            <section id={id} className={`py-16 md:py-24 px-6 md:px-12 ${className}`}>
+                <div className="max-w-[1120px] mx-auto">
+                    {children}
+                </div>
+            </section>
+        );
+
+        const Button = ({ children, variant = 'primary', className = "", onClick }) => {
+            const baseStyles = "px-8 py-4 transition-all duration-300 text-sm tracking-widest uppercase font-medium";
+            const variants = {
+                primary: `${COLORS.ctaRed} text-white hover:bg-opacity-90 shadow-sm`,
+                secondary: `border border-[#2D2D2D] ${COLORS.charcoal} hover:bg-[#2D2D2D] hover:text-white`,
+                outline: `border border-[#E5E4E2] text-[#2D2D2D] hover:bg-[#FAF9F6]`,
+                ghost: `text-[#2D2D2D] hover:underline underline-offset-4`
+            };
+            
+            return (
+                <button onClick={onClick} className={`${baseStyles} ${variants[variant]} ${className}`}>
+                    {children}
+                </button>
+            );
+        };
+
+        const Accordion = ({ title, children }) => {
+            const [isOpen, setIsOpen] = useState(false);
+            return (
+                <div className={`border-b border-[#E5E4E2] py-4`}>
+                    <button 
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="w-full flex justify-between items-center text-left group"
+                    >
+                        <span className="text-lg font-serif italic">{title}</span>
+                        <ChevronDown className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} size={20} />
+                    </button>
+                    <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[1000px] mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className="text-sm leading-relaxed text-gray-600 pb-4">
+                            {children}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Page: Home ---
+        const HomePage = ({ navigate }) => (
+            <div className="fade-in">
+                {/* Hero Section */}
+                <div className="relative h-screen w-full flex items-center overflow-hidden bg-gray-900">
+                    <img 
+                        src="Cura Recovery Lounge.jpg" 
+                        onError={(e) => {e.target.src = 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2070&auto=format&fit=crop'}}
+                        className="absolute inset-0 w-full h-full object-cover brightness-50 opacity-80"
+                        alt="Luxury Golf Lounge"
+                    />
+                    <div className="relative z-10 w-full px-6 md:px-24">
+                        <div className="max-w-3xl text-white">
+                            <p className="uppercase tracking-[0.4em] text-xs mb-4 opacity-90">Clinical Care. Curated.</p>
+                            <h1 className="text-5xl md:text-7xl font-serif mb-8 leading-tight">
+                                Redefining Event <br/><span className="italic">Recovery.</span>
+                            </h1>
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <Button onClick={() => navigate('contact')}>Request a Proposal</Button>
+                                <Button variant="outline" className="text-white border-white bg-transparent hover:text-black" onClick={() => navigate('packages')}>
+                                    View Packages
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Editorial Block */}
+                <Section className="bg-white text-center">
+                    <div className="max-w-3xl mx-auto">
+                        <h2 className="text-2xl md:text-4xl font-serif mb-6 italic">The Missing Piece in Corporate Hospitality.</h2>
+                        <p className="text-lg leading-relaxed text-gray-600 mb-8">
+                            Corporate events invest heavily in F&B, gift bags, and venues. Yet, the physical toll on players—fatigue, stiffness, and heat—is often addressed with a basic solution. Your VIPs deserve a recovery experience that matches the premium standard of the rest of your event.
+                        </p>
+                        <div className="inline-block py-2 border-y border-[#1B4332] text-[#1B4332] uppercase tracking-widest text-sm font-bold">
+                            NOT a medical tent. A Recovery Sanctuary.
+                        </div>
+                    </div>
+                </Section>
+
+                {/* CURA Advantage */}
+                <Section>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <div className="space-y-4">
+                            <div className="w-12 h-12 flex items-center justify-center border border-[#1B4332] rounded-full">
+                                <Award className="text-[#1B4332]" size={20} />
+                            </div>
+                            <h3 className="text-xl font-serif">1. ELEVATE</h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                The Executive Recharge Lounge. We transform a standard break into a luxury amenity. Whether in the clubhouse or on-course, we provide a concierge-level experience.
+                            </p>
+                        </div>
+                        <div className="space-y-4">
+                            <div className="w-12 h-12 flex items-center justify-center border border-[#1B4332] rounded-full">
+                                <Target className="text-[#1B4332]" size={20} />
+                            </div>
+                            <h3 className="text-xl font-serif">2. PERFORMANCE</h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                Keeping players at their best. Golf is an endurance game. Our protocols maintain physical capability and mental capacity, ensuring guests stay sharp.
+                            </p>
+                        </div>
+                        <div className="space-y-4">
+                            <div className="w-12 h-12 flex items-center justify-center border border-[#1B4332] rounded-full">
+                                <Clock className="text-[#1B4332]" size={20} />
+                            </div>
+                            <h3 className="text-xl font-serif">3. PRECISION</h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                High-impact recovery. We replace generic "relaxation" with targeted techniques, maximizing the short window guests have for deeper results.
+                            </p>
+                        </div>
+                    </div>
+                </Section>
+
+                {/* Packages Preview */}
+                <Section className="bg-[#FAF9F6]">
+                    <div className="flex justify-between items-end mb-12">
+                        <div>
+                            <h2 className="text-3xl font-serif italic">Three Curated Experiences.</h2>
+                            <p className="text-gray-500 uppercase tracking-widest text-xs mt-2">Tailored Recovery Solutions</p>
+                        </div>
+                        <Button variant="ghost" className="hidden md:block" onClick={() => navigate('packages')}>See full details <ArrowRight className="inline ml-2" size={16}/></Button>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {[
+                            { name: 'Package A', title: 'Executive Lounge', focus: 'Guest Experience & Comfort', staff: '2x Recovery Specialists' },
+                            { name: 'Package B', title: 'Physio-Supported', focus: 'Clinical Oversight + Performance', staff: '1x AHPC Physio + 1x Specialist', popular: true },
+                            { name: 'Package C', title: 'Physio Concierge', focus: 'VIP Expectations & Peak Demand', staff: '2x AHPC Physiotherapists' }
+                        ].map((pkg) => (
+                            <div key={pkg.name} className="bg-white p-8 border border-[#E5E4E2] flex flex-col h-full relative group hover:shadow-lg transition-shadow duration-300">
+                                {pkg.popular && <div className="absolute -top-3 left-8 bg-[#1B4332] text-white text-[10px] px-3 py-1 uppercase tracking-widest">Recommended</div>}
+                                <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-2">{pkg.name}</p>
+                                <h4 className="text-2xl font-serif mb-4">{pkg.title}</h4>
+                                <p className="text-xs font-bold text-[#1B4332] mb-6 uppercase tracking-wider">{pkg.focus}</p>
+                                <p className="text-sm text-gray-600 mb-8 border-l-2 border-[#E5E4E2] pl-4">{pkg.staff}</p>
+                                <button onClick={() => navigate('packages')} className="mt-auto flex items-center text-xs uppercase tracking-widest font-bold hover:text-[#C8102E] transition-colors">
+                                    Package Details <ChevronRight size={14} className="ml-1" />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </Section>
+
+                {/* How It Works */}
+                <Section>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        {[
+                            { step: '01', title: 'Scoping Call', desc: 'A 10-minute brief to align on venue and VIP flow.' },
+                            { step: '02', title: 'Quote & Confirm', desc: 'Transparent pricing and date security.' },
+                            { step: '03', title: 'Checklist', desc: 'Final logistics review for seamless integration.' },
+                            { step: '04', title: 'Delivery', desc: 'Professional setup and expert execution.' }
+                        ].map(item => (
+                            <div key={item.step} className="border-t border-[#E5E4E2] pt-6">
+                                <span className="text-xs font-serif italic text-gray-400 block mb-2">{item.step}</span>
+                                <h4 className="font-bold text-sm uppercase tracking-widest mb-2">{item.title}</h4>
+                                <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </Section>
+
+                {/* Final CTA */}
+                <div className="bg-[#1B4332] py-20 px-6 text-center text-white">
+                    <h2 className="text-3xl md:text-5xl font-serif italic mb-8">Ready to elevate your guest experience?</h2>
+                    <Button variant="primary" onClick={() => navigate('contact')}>Request a Proposal Today</Button>
+                    <p className="mt-6 text-xs uppercase tracking-widest opacity-60">Singapore's Premier Event Recovery Partner</p>
+                </div>
             </div>
-          </div>
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input type="text" placeholder="Full Name" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332]" />
-              <input type="text" placeholder="Company" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332]" />
+        );
+
+        // --- Page: Golf Days ---
+        const GolfDaysPage = ({ navigate }) => (
+            <div className="pt-20 fade-in">
+                <Section className="pb-12">
+                    <h1 className="text-4xl md:text-6xl font-serif italic mb-6">Seamless Integration Across the Course.</h1>
+                    <p className="text-lg text-gray-600 max-w-2xl">
+                        We bridge the gap between B2B networking and physical capability. CURA integrates directly into the flow of your corporate golf day, ensuring your VIPs are primed to play and ready to network.
+                    </p>
+                </Section>
+                {/* Timeline Component */}
+                <Section className="bg-white">
+                    <div className="space-y-16">
+                        {[
+                            { 
+                                time: 'Registration', 
+                                title: 'The Tee Box', 
+                                desc: 'Warm-up activation zones to prevent injury on the first drive. Focusing on energy and physical readiness.',
+                                icon: <MapPin size={24} />
+                            },
+                            { 
+                                time: 'The Turn', 
+                                title: 'Halfway Point', 
+                                desc: 'Rapid mobility interventions to keep players loose for the back nine. Speed, relief, and impact.',
+                                icon: <Clock size={24} />
+                            },
+                            { 
+                                time: 'Post-Round', 
+                                title: 'The Clubhouse Lounge', 
+                                desc: 'High-touch recovery suites for post-game networking. The ultimate finish to the day before dinner.',
+                                icon: <Users size={24} />
+                            }
+                        ].map((point, idx) => (
+                            <div key={idx} className="flex flex-col md:flex-row gap-8 items-start">
+                                <div className="w-full md:w-1/4">
+                                    <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#1B4332]">{point.time}</span>
+                                    <div className="h-px bg-[#E5E4E2] w-full mt-4"></div>
+                                </div>
+                                <div className="w-full md:w-3/4 flex gap-6">
+                                    <div className="p-3 bg-[#FAF9F6] rounded-full h-fit text-[#1B4332]">
+                                        {point.icon}
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl font-serif mb-3 italic">{point.title}</h3>
+                                        <p className="text-gray-600 max-w-xl leading-relaxed">{point.desc}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </Section>
+                {/* Placement & Flow */}
+                <Section className="bg-[#FAF9F6]">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div className="bg-white p-10 border border-[#E5E4E2]">
+                            <h4 className="text-xs font-bold uppercase tracking-widest mb-6">Operating Flow</h4>
+                            <ul className="space-y-4">
+                                <li className="flex items-start gap-3 text-sm text-gray-600">
+                                    <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
+                                    <span><strong>VIP Queue Management:</strong> Dedicated slotting to minimize wait times.</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm text-gray-600">
+                                    <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
+                                    <span><strong>On-Course Stations:</strong> Self-contained marquee setups with premium branding.</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm text-gray-600">
+                                    <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
+                                    <span><strong>Session Format:</strong> 10–20 minute rapid interventions optimized for event schedules.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="bg-[#1B4332] p-10 text-white flex flex-col justify-center">
+                            <h4 className="text-xs font-bold uppercase tracking-widest mb-6 opacity-70">Sponsor Activation</h4>
+                            <p className="font-serif text-xl mb-6">Transform a health benefit into a co-branded sponsorship opportunity.</p>
+                            <ul className="text-sm space-y-2 opacity-90 mb-8">
+                                <li>• Custom branded lounge signage</li>
+                                <li>• Co-branded service menus</li>
+                                <li>• Branded technician uniforms</li>
+                            </ul>
+                            <Button variant="outline" className="text-white border-white hover:text-black" onClick={() => navigate('contact')}>Discuss Activation</Button>
+                        </div>
+                    </div>
+                </Section>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input type="email" placeholder="Work Email" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332]" />
-              <input type="tel" placeholder="Phone Number" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332]" />
+        );
+
+        // --- Page: Packages ---
+        const PackagesPage = ({ navigate }) => (
+            <div className="pt-20 fade-in">
+                <Section>
+                    <p className="uppercase tracking-[0.3em] text-xs text-gray-400 mb-4">Tailored Recovery Solutions</p>
+                    <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Three Curated Experiences. <br/>One Standard of Care.</h1>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                        {/* Package A */}
+                        <div className="border border-[#E5E4E2] p-8 flex flex-col bg-white">
+                            <span className="text-[10px] uppercase tracking-widest text-gray-400">Non-Clinical</span>
+                            <h3 className="text-2xl font-serif my-4">Package A: Executive Lounge</h3>
+                            <p className="text-sm text-gray-600 mb-6">Focus: Guest Experience & Comfort</p>
+                            <div className="space-y-4 text-sm text-gray-600 mb-8">
+                                <p className="font-bold border-b pb-2">Staffing Model:</p>
+                                <p>2x Recovery Specialists</p>
+                                <p className="font-bold border-b pb-2">Guest Experience:</p>
+                                <ul className="space-y-2">
+                                    <li>• Recovery-focused soft tissue work</li>
+                                    <li>• Assisted stretching</li>
+                                    <li>• Mobility support</li>
+                                </ul>
+                            </div>
+                            <p className="text-xs italic text-gray-400 mt-auto">Best for: Hospitality marquees & relaxation zones.</p>
+                        </div>
+                        {/* Package B */}
+                        <div className="border-2 border-[#1B4332] p-8 flex flex-col bg-white relative shadow-xl">
+                            <div className="absolute -top-3 left-8 bg-[#1B4332] text-white text-[10px] px-3 py-1 uppercase tracking-widest">Recommended</div>
+                            <span className="text-[10px] uppercase tracking-widest text-gray-400">Clinical Oversight</span>
+                            <h3 className="text-2xl font-serif my-4">Package B: Physio-Supported</h3>
+                            <p className="text-sm text-gray-600 mb-6">Focus: Clinical Oversight + Performance</p>
+                            <div className="space-y-4 text-sm text-gray-600 mb-8">
+                                <p className="font-bold border-b pb-2">Staffing Model:</p>
+                                <p>1x AHPC Physio + 1x Specialist</p>
+                                <p className="font-bold border-b pb-2">Guest Experience:</p>
+                                <ul className="space-y-2">
+                                    <li>• All Package A Services</li>
+                                    <li>• Physio support for MSK concerns</li>
+                                    <li>• Activity-Specific Guidance</li>
+                                    <li>• Performance readiness & recovery</li>
+                                </ul>
+                            </div>
+                            <p className="text-xs italic text-[#1B4332] mt-auto">Best for: High-level corporate golf days.</p>
+                        </div>
+                        {/* Package C */}
+                        <div className="border border-[#E5E4E2] p-8 flex flex-col bg-white">
+                            <span className="text-[10px] uppercase tracking-widest text-gray-400">Enhanced Clinical</span>
+                            <h3 className="text-2xl font-serif my-4">Package C: Physio Concierge</h3>
+                            <p className="text-sm text-gray-600 mb-6">Focus: VIP Expectations & Peak Demand</p>
+                            <div className="space-y-4 text-sm text-gray-600 mb-8">
+                                <p className="font-bold border-b pb-2">Staffing Model:</p>
+                                <p>2x AHPC Physiotherapists</p>
+                                <p className="font-bold border-b pb-2">Guest Experience:</p>
+                                <ul className="space-y-2">
+                                    <li>• All Package B Services</li>
+                                    <li>• Reduced bottleneck for VIPs</li>
+                                    <li>• High physiotherapy capacity</li>
+                                    <li>• Includes Aquilo Cryo-Compression set</li>
+                                </ul>
+                            </div>
+                            <p className="text-xs italic text-gray-400 mt-auto">Best for: Professional-grade events & elite VIPs.</p>
+                        </div>
+                    </div>
+                    {/* Service Tiers & Scope */}
+                    <div className="max-w-3xl mx-auto">
+                        <h4 className="text-xs font-bold uppercase tracking-widest mb-8 border-b pb-4">Service Tiers & Scope</h4>
+                        <Accordion title="Tier 1: Clinical Concierge (Physiotherapy)">
+                            Our licensed AHPC Physiotherapists provide evidence-based musculoskeletal support. Scope includes: 
+                            MSK screening, manual therapy for acute stiffness, clinical stretching, and performance-specific mobility drills. 
+                            Managed strictly within the Singapore Physiotherapy Scope of Practice.
+                        </Accordion>
+                        <Accordion title="Tier 2: Performance & Recovery Support">
+                            Our Recovery Specialists focus on comfort and wellness. Scope includes: 
+                            Guided foam rolling, compression therapy management, assisted static stretching, and general soft-tissue relief.
+                        </Accordion>
+                        <Accordion title="Professional Boundaries">
+                            We are Performance Partners, not Emergency Medics. CURA manages player comfort and physical capability. 
+                            Any clinical emergency or acute injury beyond the scope of recovery is immediately escalated to the venue's EMS or on-site medical team.
+                        </Accordion>
+                    </div>
+                </Section>
             </div>
-            <select className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332]">
-              <option>Event Type: Club Corporate Golf Day</option>
-              <option>Event Type: Conference-Linked Outing</option>
-              <option>Event Type: Other</option>
-            </select>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input type="text" placeholder="Date + Venue" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332]" />
-              <input type="text" placeholder="Estimated Pax" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332]" />
+        );
+
+        // --- Page: Standards & Governance ---
+        const StandardsPage = () => (
+            <div className="pt-20 fade-in">
+                <Section>
+                    <div className="max-w-3xl">
+                        <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Quietly Confident. Rigorously Governed.</h1>
+                        <p className="text-lg text-gray-600 mb-12">
+                            CURA operates at the intersection of elite performance and clinical safety. For event organizers, we provide the peace of mind that recovery is handled with accountability and discretion.
+                        </p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16">
+                            <div className="space-y-6">
+                                <h4 className="font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <ShieldCheck className="text-[#1B4332]" /> Licensed & Insured
+                                </h4>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    Unlike freelance marketplaces, CURA provides full accountability. Our Physiotherapists are AHPC-Registered with comprehensive Professional Liability Coverage.
+                                </p>
+                            </div>
+                            <div className="space-y-6">
+                                <h4 className="font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <Stethoscope className="text-[#1B4332]" /> Defined Scope
+                                </h4>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    We operate strictly within the Singapore Physiotherapy Scope of Practice. All interventions are evidence-based, safe, and curated for the event environment.
+                                </p>
+                            </div>
+                            <div className="space-y-6">
+                                <h4 className="font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <Info className="text-[#1B4332]" /> Escalation Coordination
+                                </h4>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    Clear critical boundaries. We manage comfort; emergencies are identified and immediately escalated to venue EMS using established communication protocols.
+                                </p>
+                            </div>
+                            <div className="space-y-6">
+                                <h4 className="font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <CheckCircle2 className="text-[#1B4332]" /> PDPA & Discretion
+                                </h4>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    We adhere to strict PDPA standards. Our team is trained to operate with absolute discretion, ensuring VIP privacy and professional conduct at all times.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </Section>
             </div>
-            <textarea placeholder="Special Requirements (Sponsor Branding, Extended Tech, etc.)" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm h-32 focus:outline-none focus:border-[#1B4332]"></textarea>
-            <Button variant="primary" className="w-full">Submit Request</Button>
-          </form>
-        </div>
-      </Section>
-    </div>
-  );
-};
+        );
 
-// --- Main App Controller ---
-export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navigate = (page) => {
-    setCurrentPage(page);
-    setIsMenuOpen(false);
-    window.scrollTo(0, 0);
-  };
-
-  const NavLinks = () => (
-    <>
-      {['home', 'golf-days', 'packages', 'standards', 'about'].map(page => (
-        <button 
-          key={page}
-          onClick={() => navigate(page)}
-          className={`text-[10px] uppercase tracking-[0.3em] font-medium transition-all hover:text-[#C8102E] ${currentPage === page ? 'text-[#C8102E]' : 'text-gray-500'}`}
-        >
-          {page.replace('-', ' ')}
-        </button>
-      ))}
-    </>
-  );
-
-  return (
-    <div className={`min-h-screen ${COLORS.bg} font-sans ${COLORS.charcoal}`}>
-      {/* Navigation */}
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white shadow-md py-4' : 'bg-transparent py-8'}`}>
-        <div className="max-w-[1200px] mx-auto px-6 flex justify-between items-center">
-          <div className="cursor-pointer group" onClick={() => navigate('home')}>
-            <span className={`text-2xl font-serif tracking-tighter ${!scrolled && currentPage === 'home' ? 'text-white' : 'text-[#1B4332]'}`}>CURA</span>
-          </div>
-          
-          <div className="hidden md:flex items-center gap-8">
-            <NavLinks />
-            <Button 
-              variant="primary" 
-              className="py-2 text-[10px]" 
-              onClick={() => navigate('contact')}
-            >
-              Request a Proposal
-            </Button>
-          </div>
-
-          <button className="md:hidden text-[#2D2D2D]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={24} className={!scrolled && currentPage === 'home' ? 'text-white' : ''} /> : <Menu size={24} className={!scrolled && currentPage === 'home' ? 'text-white' : ''} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 bg-white z-[45] pt-24 px-8 flex flex-col gap-6">
-          <NavLinks />
-          <Button variant="primary" onClick={() => navigate('contact')}>Request a Proposal</Button>
-        </div>
-      )}
-
-      {/* Main Content Router */}
-      <main>
-        {currentPage === 'home' && <HomePage navigate={navigate} />}
-        {currentPage === 'golf-days' && <GolfDaysPage navigate={navigate} />}
-        {currentPage === 'packages' && <PackagesPage navigate={navigate} />}
-        {currentPage === 'standards' && <StandardsPage />}
-        {currentPage === 'about' && <AboutPage />}
-        {currentPage === 'contact' && <ContactPage />}
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-white border-t border-[#E5E4E2] py-20 px-6">
-        <div className="max-w-[1120px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-1 md:col-span-2">
-              <span className="text-2xl font-serif tracking-tighter text-[#1B4332]">CURA</span>
-              <p className="mt-4 text-sm text-gray-500 max-w-sm leading-relaxed">
-                Hospitality-grade performance and recovery lounge for premium corporate events. Clinical Care. Curated.
-              </p>
+        // --- Page: About ---
+        const AboutPage = () => (
+            <div className="pt-20 fade-in">
+                <Section>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Clinical Care. <br/>Curated.</h1>
+                            <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                                CURA was born from a simple observation: corporate event recovery was often an afterthought—a basic massage table in a corner. 
+                            </p>
+                            <p className="text-gray-600 leading-relaxed">
+                                We saw the gap between premium hospitality and professional clinical care. Our mission is to bridge that gap, providing a recovery sanctuary that enhances performance and validates the premium nature of your event.
+                            </p>
+                        </div>
+                        <div className="bg-[#E5E4E2] aspect-square relative overflow-hidden">
+                           <img 
+                            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop" 
+                            className="absolute inset-0 w-full h-full object-cover grayscale opacity-80 hover:scale-105 transition-transform duration-700"
+                            alt="Physiotherapy hands"
+                          />
+                        </div>
+                    </div>
+                </Section>
+                
+                <Section className="bg-[#1B4332] text-white">
+                    <h3 className="text-center font-serif text-3xl italic mb-12">The Pillars of CURA</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                        <div>
+                            <h4 className="text-lg uppercase tracking-widest mb-4">Elevate</h4>
+                            <p className="text-sm opacity-80">Transforming the standard break into a luxury amenity.</p>
+                        </div>
+                        <div>
+                            <h4 className="text-lg uppercase tracking-widest mb-4">Performance</h4>
+                            <p className="text-sm opacity-80">Maintaining physical and mental capacity for the long game.</p>
+                        </div>
+                        <div>
+                            <h4 className="text-lg uppercase tracking-widest mb-4">Precision</h4>
+                            <p className="text-sm opacity-80">Targeted, high-impact protocols for efficient recovery.</p>
+                        </div>
+                    </div>
+                </Section>
             </div>
-            <div>
-              <h5 className="text-[10px] uppercase tracking-widest font-bold mb-6">Navigation</h5>
-              <div className="flex flex-col gap-3 text-xs text-gray-500">
-                <button onClick={() => navigate('golf-days')} className="hover:text-black w-fit">Golf Days</button>
-                <button onClick={() => navigate('packages')} className="hover:text-black w-fit">Packages</button>
-                <button onClick={() => navigate('standards')} className="hover:text-black w-fit">Standards</button>
-                <button onClick={() => navigate('about')} className="hover:text-black w-fit">About</button>
-              </div>
-            </div>
-            <div>
-              <h5 className="text-[10px] uppercase tracking-widest font-bold mb-6">Connect</h5>
-              <div className="flex flex-col gap-3 text-xs text-gray-500">
-                <p>Singapore Based</p>
-                <a href="mailto:events@meetcura.co" className="hover:text-black">events@meetcura.co</a>
-                <p>+65 8897 8379</p>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-[#E5E4E2] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[10px] text-gray-400 uppercase tracking-widest">© 2026 CURA Event Physiotherapy & Recovery Partners</p>
-            <p className="text-[10px] text-gray-400 max-w-md text-center md:text-right italic">
-              We complement, not replace, event medical coverage. Services are wellness and physiotherapy scope (AHPC).
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+        );
+
+        // --- Page: Contact ---
+        const ContactPage = () => {
+            const [submitted, setSubmitted] = useState(false);
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setSubmitted(true);
+            };
+            if (submitted) {
+                return (
+                    <div className="pt-40 fade-in">
+                        <Section className="text-center min-h-[70vh]">
+                            <h2 className="text-4xl font-serif italic mb-4">Thank you.</h2>
+                            <p className="text-gray-600">Your request has been received. Our team will contact you within 24 hours.</p>
+                        </Section>
+                    </div>
+                );
+            }
+            return (
+                <div className="pt-20 fade-in">
+                    <Section>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                            <div>
+                                <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Request a Proposal.</h1>
+                                <p className="text-gray-600 mb-8">
+                                    Every event is unique. Please provide a few details and we will prepare a bespoke proposal for your review.
+                                </p>
+                                <div className="space-y-4 text-sm uppercase tracking-widest text-[#1B4332]">
+                                    <p className="flex items-center gap-3"><MapPin size={16} /> Singapore Based</p>
+                                    <p className="flex items-center gap-3"><Clock size={16} /> Net 14 Days Payment</p>
+                                </div>
+                            </div>
+                            
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <input type="text" placeholder="Full Name" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                    <input type="text" placeholder="Company" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <input type="email" placeholder="Work Email" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                    <input type="tel" placeholder="Phone Number" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                </div>
+                                <select className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors">
+                                    <option>Event Type: Club Corporate Golf Day</option>
+                                    <option>Event Type: Conference-Linked Outing</option>
+                                    <option>Event Type: Other</option>
+                                </select>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <input type="text" placeholder="Date + Venue" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                    <input type="text" placeholder="Estimated Pax" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                </div>
+                                <textarea placeholder="Special Requirements (Sponsor Branding, Extended Tech, etc.)" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm h-32 focus:outline-none focus:border-[#1B4332] transition-colors"></textarea>
+                                <Button variant="primary" className="w-full">Submit Request</Button>
+                            </form>
+                        </div>
+                    </Section>
+                </div>
+            );
+        };
+
+        // --- Main App Controller ---
+        function App() {
+            const [currentPage, setCurrentPage] = useState('home');
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [scrolled, setScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const navigate = (page) => {
+                setCurrentPage(page);
+                setIsMenuOpen(false);
+                window.scrollTo(0, 0);
+            };
+
+            const NavLinks = () => (
+                <>
+                    {['home', 'golf-days', 'packages', 'standards', 'about'].map(page => (
+                        <button 
+                            key={page}
+                            onClick={() => navigate(page)}
+                            className={`text-[10px] uppercase tracking-[0.3em] font-medium transition-all hover:text-[#C8102E] ${currentPage === page ? 'text-[#C8102E]' : 'text-gray-500'}`}
+                        >
+                            {page.replace('-', ' ')}
+                        </button>
+                    ))}
+                </>
+            );
+
+            return (
+                <div className="min-h-screen bg-[#FAF9F6] font-sans text-[#2D2D2D]">
+                    {/* Navigation */}
+                    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white shadow-md py-4' : 'bg-transparent py-8'}`}>
+                        <div className="max-w-[1200px] mx-auto px-6 flex justify-between items-center">
+                            <div className="cursor-pointer group" onClick={() => navigate('home')}>
+                                <span className={`text-2xl font-serif tracking-tighter ${!scrolled && currentPage === 'home' ? 'text-white' : 'text-[#1B4332]'}`}>CURA</span>
+                            </div>
+                            
+                            <div className="hidden md:flex items-center gap-8">
+                                <NavLinks />
+                                <Button 
+                                    variant="primary" 
+                                    className="py-2 text-[10px]" 
+                                    onClick={() => navigate('contact')}
+                                >
+                                    Request a Proposal
+                                </Button>
+                            </div>
+                            <button className="md:hidden text-[#2D2D2D]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                                {isMenuOpen ? <X size={24} className={!scrolled && currentPage === 'home' ? 'text-white' : ''} /> : <MenuIcon size={24} className={!scrolled && currentPage === 'home' ? 'text-white' : ''} />}
+                            </button>
+                        </div>
+                    </nav>
+                    
+                    {/* Mobile Menu */}
+                    {isMenuOpen && (
+                        <div className="fixed inset-0 bg-white z-[45] pt-24 px-8 flex flex-col gap-6">
+                            <NavLinks />
+                            <Button variant="primary" onClick={() => navigate('contact')}>Request a Proposal</Button>
+                        </div>
+                    )}
+                    
+                    {/* Main Content Router */}
+                    <main>
+                        {currentPage === 'home' && <HomePage navigate={navigate} />}
+                        {currentPage === 'golf-days' && <GolfDaysPage navigate={navigate} />}
+                        {currentPage === 'packages' && <PackagesPage navigate={navigate} />}
+                        {currentPage === 'standards' && <StandardsPage />}
+                        {currentPage === 'about' && <AboutPage />}
+                        {currentPage === 'contact' && <ContactPage />}
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="bg-white border-t border-[#E5E4E2] py-20 px-6">
+                        <div className="max-w-[1120px] mx-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                                <div className="col-span-1 md:col-span-2">
+                                    <span className="text-2xl font-serif tracking-tighter text-[#1B4332]">CURA</span>
+                                    <p className="mt-4 text-sm text-gray-500 max-w-sm leading-relaxed">
+                                        Hospitality-grade performance and recovery lounge for premium corporate events. Clinical Care. Curated.
+                                    </p>
+                                </div>
+                                <div>
+                                    <h5 className="text-[10px] uppercase tracking-widest font-bold mb-6">Navigation</h5>
+                                    <div className="flex flex-col gap-3 text-xs text-gray-500">
+                                        <button onClick={() => navigate('golf-days')} className="hover:text-black w-fit">Golf Days</button>
+                                        <button onClick={() => navigate('packages')} className="hover:text-black w-fit">Packages</button>
+                                        <button onClick={() => navigate('standards')} className="hover:text-black w-fit">Standards</button>
+                                        <button onClick={() => navigate('about')} className="hover:text-black w-fit">About</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 className="text-[10px] uppercase tracking-widest font-bold mb-6">Connect</h5>
+                                    <div className="flex flex-col gap-3 text-xs text-gray-500">
+                                        <p>Singapore Based</p>
+                                        <a href="mailto:events@meetcura.co" className="hover:text-black">events@meetcura.co</a>
+                                        <p>+65 8897 8379</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="border-t border-[#E5E4E2] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                                <p className="text-[10px] text-gray-400 uppercase tracking-widest">© 2026 CURA Event Physiotherapy & Recovery Partners</p>
+                                <p className="text-[10px] text-gray-400 max-w-md text-center md:text-right italic">
+                                    We complement, not replace, event medical coverage. Services are wellness and physiotherapy scope (AHPC).
+                                </p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
