@@ -61,6 +61,7 @@
         );
         const Menu = (p) => <Icon {...p}><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></Icon>;
         const X = (p) => <Icon {...p}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></Icon>;
+        const Calendar = (p) => (<Icon {...p}><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></Icon>);
         const ChevronRight = (p) => <Icon {...p}><polyline points="9 18 15 12 9 6"/></Icon>;
         const ChevronDown = (p) => <Icon {...p}><polyline points="6 9 12 15 18 9"/></Icon>;
         const Clock = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></Icon>;
@@ -575,7 +576,7 @@
                                 </p>
                                 <div className="space-y-4 text-sm uppercase tracking-widest text-[#1B4332]">
                                     <p className="flex items-center gap-3"><MapPin size={16} /> Singapore Based</p>
-                                    <p className="flex items-center gap-3"><Mail size={16} /> RESPONSE WITHIN 3-5 BUSINESS DAY </p>
+                                    <p className="flex items-center gap-3"><Calendar size={16} /> RESPONSE WITHIN 3-5 BUSINESS DAY </p>
                                     <p className="flex items-center gap-3"><Clock size={16} /> LIMITED AVAILABILITY — SECURE YOUR DATE </p>
                                 </div>
                             </div>
