@@ -514,20 +514,41 @@
                 </Section>
             </div>
         );
-
+        
         // --- Page: Contact ---
         const ContactPage = () => {
             const [submitted, setSubmitted] = useState(false);
+            
             const handleSubmit = (e) => {
                 e.preventDefault();
                 setSubmitted(true);
+                
+                // Get form data
+                const formData = new FormData(e.target);
+                const name = formData.get('fullName');
+                const company = formData.get('company');
+                const email = formData.get('email');
+                const phone = formData.get('phone');
+                const eventType = formData.get('eventType');
+                const dateVenue = formData.get('dateVenue');
+                const pax = formData.get('pax');
+                const notes = formData.get('notes');
+                
+                // Construct email body
+                const subject = `Proposal Request: ${eventType} - ${company}`;
+                const body = `Name: ${name}%0D%0ACompany: ${company}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0AEvent Type: ${eventType}%0D%0ADate & Venue: ${dateVenue}%0D%0AEstimated Pax: ${pax}%0D%0ANotes: ${notes}`;
+                
+                // Open mail client
+                window.location.href = `mailto:events@meetcura.co?subject=${encodeURIComponent(subject)}&body=${body}`;
             };
+            
             if (submitted) {
                 return (
                     <div className="pt-40 fade-in">
                         <Section className="text-center min-h-[70vh]">
                             <h2 className="text-4xl font-serif italic mb-4">Thank you.</h2>
-                            <p className="text-gray-600">Your request has been received. Our team will contact you within 24 hours.</p>
+                            <p className="text-gray-600">Your email app should have opened with the proposal details. If not, please email us directly at trainwithjx@gmail.com.</p>
+                            <Button variant="secondary" className="mt-8" onClick={() => window.location.reload()}>Return Home</Button>
                         </Section>
                     </div>
                 );
@@ -549,23 +570,23 @@
                             
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="Full Name" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
-                                    <input type="text" placeholder="Company" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                    <input name="fullName" type="text" placeholder="Full Name" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                    <input name="company" type="text" placeholder="Company" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <input type="email" placeholder="Work Email" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
-                                    <input type="tel" placeholder="Phone Number" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                    <input name="email" type="email" placeholder="Work Email" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                    <input name="phone" type="tel" placeholder="Phone Number" required className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
                                 </div>
-                                <select className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors">
+                                <select name="eventType" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors">
                                     <option>Event Type: Club Corporate Golf Day</option>
                                     <option>Event Type: Conference-Linked Outing</option>
                                     <option>Event Type: Other</option>
                                 </select>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="Date + Venue" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
-                                    <input type="text" placeholder="Estimated Pax" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                    <input name="dateVenue" type="text" placeholder="Date + Venue" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
+                                    <input name="pax" type="text" placeholder="Estimated Pax" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors" />
                                 </div>
-                                <textarea placeholder="Special Requirements (Sponsor Branding, Extended Tech, etc.)" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm h-32 focus:outline-none focus:border-[#1B4332] transition-colors"></textarea>
+                                <textarea name="notes" placeholder="Special Requirements (Sponsor Branding, Extended Tech, etc.)" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm h-32 focus:outline-none focus:border-[#1B4332] transition-colors"></textarea>
                                 <Button variant="primary" className="w-full">Submit Request</Button>
                             </form>
                         </div>
@@ -573,6 +594,7 @@
                 </div>
             );
         };
+
 
         // --- Main App Controller ---
         function App() {
