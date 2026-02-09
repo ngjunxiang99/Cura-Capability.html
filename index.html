@@ -99,8 +99,8 @@
         const Button = ({ children, variant = 'primary', className = "", onClick }) => {
             const baseStyles = "px-8 py-4 transition-all duration-300 text-sm tracking-widest uppercase font-medium";
             const variants = {
-                primary: `${COLORS.ctaRed} text-white hover:bg-opacity-90 shadow-sm`,
-                secondary: `border border-[#2D2D2D] ${COLORS.charcoal} hover:bg-[#2D2D2D] hover:text-white`,
+                primary: `${COLORS.ctaRed} text-[#FAF9F6] hover:bg-opacity-90 shadow-sm`,
+                secondary: `border border-[#2D2D2D] ${COLORS.charcoal} hover:bg-[#2D2D2D] hover:text-[#FAF9F6]`,
                 outline: `border border-[#E5E4E2] text-[#2D2D2D] hover:bg-[#FAF9F6]`,
                 ghost: `text-[#2D2D2D] hover:underline underline-offset-4`
             };
@@ -144,7 +144,7 @@
                         alt="Luxury Golf Lounge"
                     />
                     <div className="relative z-10 w-full px-6 md:px-24">
-                        <div className="max-w-3xl text-white">
+                        <div className="max-w-3xl text-[#FAF9F6]">
                             <p className="uppercase tracking-[0.4em] text-xs mb-4 opacity-90">Clinical Care. Curated.</p>
                             <h1 className="text-5xl md:text-7xl font-serif mb-8 leading-tight">
                                 Redefining Event <br/><span className="italic">Recovery.</span>
@@ -169,15 +169,16 @@
                     </div>
                 </Section>
 
-                {/* Hero Message Section (Added as requested) */}
-                <Section className="bg-[#FAF9F6] text-center">
+                {/* Hero Message Section (Green Background) */}
+                <Section className="bg-[#1B4332] text-center text-[#FAF9F6]">
                     <div className="max-w-4xl mx-auto">
-                        <p className="text-xl md:text-2xl font-serif leading-relaxed text-[#1B4332]">
+                        <h2 className="text-3xl md:text-5xl font-serif italic mb-8">Redefining Event Recovery.</h2>
+                        <p className="text-xl md:text-2xl font-serif leading-relaxed opacity-90 mb-10">
                             "We integrate clinical expertise into the comfort of a hospitality lounge. Our recovery experience blends clinically curated protocols with concierge-level service, ensuring your guests feel genuinely supported and ready to perform at their best."
                         </p>
-                    </div>
-                  <div className="inline-block py-2 border-y border-[#1B4332] text-[#1B4332] uppercase tracking-widest text-sm font-bold">
-                        NOT a medical tent. A Recovery Sanctuary.
+                        <div className="inline-block py-2 border-y border-white/30 uppercase tracking-widest text-sm font-bold">
+                            NOT a medical tent. A Recovery Sanctuary.
+                        </div>
                     </div>
                 </Section>
 
