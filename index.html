@@ -521,7 +521,6 @@
             
             const handleSubmit = (e) => {
                 e.preventDefault();
-                setSubmitted(true);
                 
                 // Get form data
                 const formData = new FormData(e.target);
@@ -534,12 +533,15 @@
                 const pax = formData.get('pax');
                 const notes = formData.get('notes');
                 
-                // Construct email body
+                // Construct email body with proper encoding
                 const subject = `Proposal Request: ${eventType} - ${company}`;
-                const body = `Name: ${name}%0D%0ACompany: ${company}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0AEvent Type: ${eventType}%0D%0ADate & Venue: ${dateVenue}%0D%0AEstimated Pax: ${pax}%0D%0ANotes: ${notes}`;
+                const body = `Name: ${name}\nCompany: ${company}\nEmail: ${email}\nPhone: ${phone}\nEvent Type: ${eventType}\nDate & Venue: ${dateVenue}\nEstimated Pax: ${pax}\nNotes: ${notes}`;
                 
-                // Open mail client
-                window.location.href = `mailto:events@meetcura.co?subject=${encodeURIComponent(subject)}&body=${body}`;
+                // Open mail client BEFORE updating state, targeting events@meetcura.co
+                window.location.href = `mailto:events@meetcura.co?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                // Show success message
+                setSubmitted(true);
             };
             
             if (submitted) {
@@ -547,7 +549,7 @@
                     <div className="pt-40 fade-in">
                         <Section className="text-center min-h-[70vh]">
                             <h2 className="text-4xl font-serif italic mb-4">Thank you.</h2>
-                            <p className="text-gray-600">Your email app should have opened with the proposal details. If not, please email us directly at trainwithjx@gmail.com.</p>
+                            <p className="text-gray-600">Your email app should have opened with the proposal details. If not, please email us directly at events@meetcura.co.</p>
                             <Button variant="secondary" className="mt-8" onClick={() => window.location.reload()}>Return Home</Button>
                         </Section>
                     </div>
