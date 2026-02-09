@@ -181,7 +181,8 @@
                             </div>
                             <h3 className="text-xl font-serif">1. ELEVATE</h3>
                             <p className="text-sm text-gray-600 leading-relaxed">
-                                The Executive Recharge Lounge. We transform a standard break into a luxury amenity. Whether in the clubhouse or on-course, we provide a concierge-level experience.
+                                The Executive Recharge Lounge. 
+                                We transform a standard break into a luxury amenity. Whether in the clubhouse or on the course, we provide a concierge-level experience that makes your VIPs feel genuinely valued and looked after.
                             </p>
                         </div>
                         <div className="space-y-4">
@@ -190,7 +191,8 @@
                             </div>
                             <h3 className="text-xl font-serif">2. PERFORMANCE</h3>
                             <p className="text-sm text-gray-600 leading-relaxed">
-                                Keeping players at their best. Golf is an endurance game. Our protocols maintain physical capability and mental capacity, ensuring guests stay sharp.
+                                Keeping players at their best.
+                                Golf is an endurance game. Our protocols are designed to maintain physical capability and mental capacity, ensuring your guests can compete, network, and stay sharp without the distraction of fatigue.
                             </p>
                         </div>
                         <div className="space-y-4">
@@ -199,7 +201,9 @@
                             </div>
                             <h3 className="text-xl font-serif">3. PRECISION</h3>
                             <p className="text-sm text-gray-600 leading-relaxed">
-                                High-impact recovery. We replace generic "relaxation" with targeted techniques, maximizing the short window guests have for deeper results.
+                                High-impact recovery in a fraction of the time.
+                                We replace generic "relaxation" with targeted techniques. From our recovery specialists to our lead physiotherapists, we turn downtime into a high-value health benefit by maximizing the short window of time guests have to deliver a result that feels deeper and lasts longer.
+
                             </p>
                         </div>
                     </div>
@@ -229,24 +233,6 @@
                                 <button onClick={() => navigate('packages')} className="mt-auto flex items-center text-xs uppercase tracking-widest font-bold hover:text-[#C8102E] transition-colors">
                                     Package Details <ChevronRight size={14} className="ml-1" />
                                 </button>
-                            </div>
-                        ))}
-                    </div>
-                </Section>
-
-                {/* How It Works */}
-                <Section>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        {[
-                            { step: '01', title: 'Scoping Call', desc: 'A 10-minute brief to align on venue and VIP flow.' },
-                            { step: '02', title: 'Quote & Confirm', desc: 'Transparent pricing and date security.' },
-                            { step: '03', title: 'Checklist', desc: 'Final logistics review for seamless integration.' },
-                            { step: '04', title: 'Delivery', desc: 'Professional setup and expert execution.' }
-                        ].map(item => (
-                            <div key={item.step} className="border-t border-[#E5E4E2] pt-6">
-                                <span className="text-xs font-serif italic text-gray-400 block mb-2">{item.step}</span>
-                                <h4 className="font-bold text-sm uppercase tracking-widest mb-2">{item.title}</h4>
-                                <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -604,6 +590,25 @@
                             </form>
                         </div>
                     </Section>
+
+                     {/* How It Works */}
+                <Section>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        {[
+                            { step: '01', title: 'Scoping Call', desc: 'A 10-minute brief to align on venue and VIP flow.' },
+                            { step: '02', title: 'Quote & Confirm', desc: 'Transparent pricing and date security.' },
+                            { step: '03', title: 'Checklist', desc: 'Final logistics review for seamless integration.' },
+                            { step: '04', title: 'Delivery', desc: 'Professional setup and expert execution.' }
+                        ].map(item => (
+                            <div key={item.step} className="border-t border-[#E5E4E2] pt-6">
+                                <span className="text-xs font-serif italic text-gray-400 block mb-2">{item.step}</span>
+                                <h4 className="font-bold text-sm uppercase tracking-widest mb-2">{item.title}</h4>
+                                <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </Section>
+
                 </div>
             );
         };
