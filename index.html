@@ -537,8 +537,9 @@
                 const subject = `Proposal Request: ${eventType} - ${company}`;
                 const body = `Name: ${name}\nCompany: ${company}\nEmail: ${email}\nPhone: ${phone}\nEvent Type: ${eventType}\nDate & Venue: ${dateVenue}\nEstimated Pax: ${pax}\nNotes: ${notes}`;
                 
-                // Open mail client BEFORE updating state, targeting events@meetcura.co
-                window.location.href = `mailto:events@meetcura.co?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                // Open mail client targeting events@meetcura.co
+                // Using window.location.assign is sometimes more reliable for mailto links
+                window.location.assign(`mailto:events@meetcura.co?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
                 
                 // Show success message
                 setSubmitted(true);
