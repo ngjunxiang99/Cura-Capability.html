@@ -38,6 +38,8 @@
         ::-webkit-scrollbar-track { background: #FAF9F6; }
         ::-webkit-scrollbar-thumb { background: #1B4332; border-radius: 4px; }
         body { background-color: #FAF9F6; }
+        .fade-in { animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -46,11 +48,11 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- ICONS (Inline to prevent import errors) ---
+        // --- ICONS (Inline definitions to replace lucide-react imports) ---
         const Icon = ({ children, size = 24, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
         );
-        const MenuIcon = (p) => <Icon {...p}><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></Icon>;
+        const Menu = (p) => <Icon {...p}><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></Icon>;
         const X = (p) => <Icon {...p}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></Icon>;
         const ChevronRight = (p) => <Icon {...p}><polyline points="9 18 15 12 9 6"/></Icon>;
         const ChevronDown = (p) => <Icon {...p}><polyline points="6 9 12 15 18 9"/></Icon>;
@@ -623,7 +625,7 @@
                                 </Button>
                             </div>
                             <button className="md:hidden text-[#2D2D2D]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                                {isMenuOpen ? <X size={24} className={!scrolled && currentPage === 'home' ? 'text-white' : ''} /> : <MenuIcon size={24} className={!scrolled && currentPage === 'home' ? 'text-white' : ''} />}
+                                {isMenuOpen ? <X size={24} className={!scrolled && currentPage === 'home' ? 'text-white' : ''} /> : <Menu size={24} className={!scrolled && currentPage === 'home' ? 'text-white' : ''} />}
                             </button>
                         </div>
                     </nav>
