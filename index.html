@@ -9,8 +9,8 @@
     <!-- OPTION 1: Automatic "C" Logo (Works instantly) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-family=%22serif%22 fill=%22%231B4332%22>C</text></svg>">
     
-    <!-- OPTION 2: Your Real Logo (Uncomment line below and save image as 'Cura Favicon.png' in folder) -->
-    <!-- <link rel="icon" type="image/png" href="Cura Favicon.png"> -->
+    <!-- OPTION 2: Your Real Logo (Uncomment line below and save image as 'Cura-Favicon.png' in folder) -->
+    <!-- <link rel="icon" type="image/png" href="Cura-Favicon.png"> -->
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -270,90 +270,227 @@
             </div>
         );
 
-        // --- Page: Golf Days ---
-        const GolfDaysPage = ({ navigate }) => (
-            <div className="pt-20 fade-in">
-                <Section className="pb-12">
-                    <h1 className="text-4xl md:text-6xl font-serif italic mb-6">Seamless Integration Across the Course.</h1>
-                    <p className="text-lg text-gray-600 max-w-2xl">
-                        We bridge the gap between B2B networking and physical capability. CURA integrates directly into the flow of your corporate golf day, ensuring your VIPs are primed to play and ready to network.
-                    </p>
-                </Section>
-                {/* Timeline Component */}
-                <Section className="bg-white">
-                    <div className="space-y-16">
-                        {[
-                            { 
-                                time: 'Registration', 
-                                title: 'The Tee Box', 
-                                desc: 'Warm-up activation zones to prevent injury on the first drive. Focusing on energy and physical readiness.',
-                                icon: <MapPin size={24} />
-                            },
-                            { 
-                                time: 'The Turn', 
-                                title: 'Halfway Point', 
-                                desc: 'Rapid mobility interventions to keep players loose for the back nine. Speed, relief, and impact.',
-                                icon: <Clock size={24} />
-                            },
-                            { 
-                                time: 'Post-Round', 
-                                title: 'The Clubhouse Lounge', 
-                                desc: 'High-touch recovery suites for post-game networking. The ultimate finish to the day before dinner.',
-                                icon: <Users size={24} />
-                            }
-                        ].map((point, idx) => (
-                            <div key={idx} className="flex flex-col md:flex-row gap-8 items-start">
-                                <div className="w-full md:w-1/4">
-                                    <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#1B4332]">{point.time}</span>
-                                    <div className="h-px bg-[#E5E4E2] w-full mt-4"></div>
-                                </div>
-                                <div className="w-full md:w-3/4 flex gap-6">
-                                    <div className="p-3 bg-[#FAF9F6] rounded-full h-fit text-[#1B4332]">
-                                        {point.icon}
-                                    </div>
-                                    <div>
-                                        <h3 className="text-2xl font-serif mb-3 italic">{point.title}</h3>
-                                        <p className="text-gray-600 max-w-xl leading-relaxed">{point.desc}</p>
-                                    </div>
-                                </div>
+        // --- Page: Deployment (Formerly Golf Days) ---
+        const GolfDaysPage = ({ navigate }) => {
+            const [activeTab, setActiveTab] = useState('golf');
+
+            return (
+                <div className="pt-20 fade-in">
+                    {/* Header & Tabs */}
+                    <Section className="pb-8">
+                        <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-12">
+                            <div>
+                                <p className="uppercase tracking-[0.3em] text-xs text-[#1B4332] font-bold mb-4">Deployment Models</p>
+                                <h1 className="text-4xl md:text-6xl font-serif italic mb-4">
+                                    {activeTab === 'golf' ? 'Seamless Integration Across the Course.' : 'Elite Support Courtside & Trackside.'}
+                                </h1>
+                                <p className="text-lg text-gray-600 max-w-xl">
+                                    {activeTab === 'golf' 
+                                        ? 'We bridge the gap between networking and performance. CURA integrates directly into the flow of your corporate golf day.'
+                                        : 'Bringing clinical governance and hospitality standards to tennis tournaments, padel leagues, and endurance events.'}
+                                </p>
                             </div>
-                        ))}
-                    </div>
-                </Section>
-                {/* Placement & Flow */}
-                <Section className="bg-[#FAF9F6]">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <div className="bg-white p-10 border border-[#E5E4E2]">
-                            <h4 className="text-xs font-bold uppercase tracking-widest mb-6">Operating Flow</h4>
-                            <ul className="space-y-4">
-                                <li className="flex items-start gap-3 text-sm text-gray-600">
-                                    <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
-                                    <span><strong>VIP Queue Management:</strong> Dedicated slotting to minimize wait times.</span>
-                                </li>
-                                <li className="flex items-start gap-3 text-sm text-gray-600">
-                                    <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
-                                    <span><strong>On-Course Stations:</strong> Self-contained marquee setups with premium branding.</span>
-                                </li>
-                                <li className="flex items-start gap-3 text-sm text-gray-600">
-                                    <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
-                                    <span><strong>Session Format:</strong> 10–20 minute rapid interventions optimized for event schedules.</span>
-                                </li>
-                            </ul>
+                            
+                            {/* Tab Switcher */}
+                            <div className="flex gap-2 bg-white p-1 border border-[#E5E4E2] rounded-sm">
+                                <button 
+                                    onClick={() => setActiveTab('golf')}
+                                    className={`px-6 py-3 text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === 'golf' ? 'bg-[#1B4332] text-white shadow-md' : 'text-gray-400 hover:text-[#1B4332]'}`}
+                                >
+                                    Golf Days
+                                </button>
+                                <button 
+                                    onClick={() => setActiveTab('sports')}
+                                    className={`px-6 py-3 text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === 'sports' ? 'bg-[#1B4332] text-white shadow-md' : 'text-gray-400 hover:text-[#1B4332]'}`}
+                                >
+                                    Premium Sports
+                                </button>
+                            </div>
                         </div>
-                        <div className="bg-[#1B4332] p-10 text-white flex flex-col justify-center">
-                            <h4 className="text-xs font-bold uppercase tracking-widest mb-6 opacity-70">Sponsor Activation</h4>
-                            <p className="font-serif text-xl mb-6">Transform a health benefit into a co-branded sponsorship opportunity.</p>
-                            <ul className="text-sm space-y-2 opacity-90 mb-8">
-                                <li>• Custom branded lounge signage</li>
-                                <li>• Co-branded service menus</li>
-                                <li>• Branded technician uniforms</li>
-                            </ul>
-                            <Button variant="outline" className="text-white border-white hover:text-black" onClick={() => navigate('contact')}>Discuss Activation</Button>
+                    </Section>
+
+                    {/* CONTENT: GOLF DAYS */}
+                    {activeTab === 'golf' && (
+                        <div className="fade-in">
+                            {/* Timeline Component */}
+                            <Section className="bg-white">
+                                <div className="space-y-16">
+                                    {[
+                                        { 
+                                            time: 'Registration', 
+                                            title: 'The Tee Box', 
+                                            desc: 'Warm-up activation zones to prevent injury on the first drive. Focusing on energy and physical readiness.',
+                                            icon: <MapPin size={24} />
+                                        },
+                                        { 
+                                            time: 'The Turn', 
+                                            title: 'Halfway Point', 
+                                            desc: 'Rapid mobility interventions to keep players loose for the back nine. Speed, relief, and impact.',
+                                            icon: <Clock size={24} />
+                                        },
+                                        { 
+                                            time: 'Post-Round', 
+                                            title: 'The Clubhouse Lounge', 
+                                            desc: 'High-touch recovery suites for post-game networking. The ultimate finish to the day before dinner.',
+                                            icon: <Users size={24} />
+                                        }
+                                    ].map((point, idx) => (
+                                        <div key={idx} className="flex flex-col md:flex-row gap-8 items-start">
+                                            <div className="w-full md:w-1/4">
+                                                <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#1B4332]">{point.time}</span>
+                                                <div className="h-px bg-[#E5E4E2] w-full mt-4"></div>
+                                            </div>
+                                            <div className="w-full md:w-3/4 flex gap-6">
+                                                <div className="p-3 bg-[#FAF9F6] rounded-full h-fit text-[#1B4332]">
+                                                    {point.icon}
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-2xl font-serif mb-3 italic">{point.title}</h3>
+                                                    <p className="text-gray-600 max-w-xl leading-relaxed">{point.desc}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </Section>
+
+                            {/* Typical Placement and Outcomes (Moved Up) */}
+                            <Section className="bg-[#FAF9F6]">
+                                <h4 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-8 text-center">Typical Placement & Outcomes</h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                    <div className="bg-white p-8 border border-[#E5E4E2]">
+                                        <h3 className="text-xl font-serif text-[#1B4332] mb-2">Performance Readiness</h3>
+                                        <p className="text-xs uppercase tracking-widest text-gray-400 mb-4">Pre & Mid-Game</p>
+                                        <p className="text-sm text-gray-600 leading-relaxed">
+                                            Our physiotherapist can address stiffness and MSK concerns to unlock mobility and activate muscles, allowing for a consistent swing. By optimising readiness and facilitating recovery, we can minimise the "back-nine burnout".
+                                        </p>
+                                    </div>
+                                    <div className="bg-white p-8 border border-[#E5E4E2]">
+                                        <h3 className="text-xl font-serif text-[#1B4332] mb-2">Recovery</h3>
+                                        <p className="text-xs uppercase tracking-widest text-gray-400 mb-4">Post-Game Engagement</p>
+                                        <p className="text-sm text-gray-600 leading-relaxed">
+                                            We replace generic relaxation with clinically curated recovery protocols to address tightness and fatigue; Designed to help guests stay mentally sharp and physically energised to engage or network effectively during post-game activities.
+                                        </p>
+                                    </div>
+                                </div>
+                            </Section>
+
+                            {/* Placement & Flow */}
+                            <Section className="bg-white">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                    <div className="bg-[#FAF9F6] p-10 border border-[#E5E4E2]">
+                                        <h4 className="text-xs font-bold uppercase tracking-widest mb-6">Operating Flow</h4>
+                                        <ul className="space-y-4">
+                                            <li className="flex items-start gap-3 text-sm text-gray-600">
+                                                <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
+                                                <span><strong>VIP Queue Management:</strong> Dedicated slotting to minimize wait times.</span>
+                                            </li>
+                                            <li className="flex items-start gap-3 text-sm text-gray-600">
+                                                <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
+                                                <span><strong>On-Course Stations:</strong> Self-contained marquee setups with premium branding.</span>
+                                            </li>
+                                            <li className="flex items-start gap-3 text-sm text-gray-600">
+                                                <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
+                                                <span><strong>Session Format:</strong> 10–20 minute rapid interventions optimized for event schedules.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-[#1B4332] p-10 text-white flex flex-col justify-center">
+                                        <h4 className="text-xs font-bold uppercase tracking-widest mb-6 opacity-70">Sponsor Activation</h4>
+                                        <p className="font-serif text-xl mb-6">Transform a health benefit into a co-branded sponsorship opportunity.</p>
+                                        <ul className="text-sm space-y-2 opacity-90 mb-8">
+                                            <li>• Custom branded lounge signage</li>
+                                            <li>• Co-branded service menus</li>
+                                            <li>• Branded technician uniforms</li>
+                                        </ul>
+                                        <Button variant="outline" className="text-white border-white hover:text-black" onClick={() => navigate('contact')}>Discuss Activation</Button>
+                                    </div>
+                                </div>
+                            </Section>
                         </div>
-                    </div>
-                </Section>
-            </div>
-        );
+                    )}
+
+                    {/* CONTENT: PREMIUM SPORTS */}
+                    {activeTab === 'sports' && (
+                        <div className="fade-in">
+                            {/* Timeline Component */}
+                            <Section className="bg-white">
+                                <div className="space-y-16">
+                                    {[
+                                        { 
+                                            time: 'Pre-Game', 
+                                            title: 'Performance Activation', 
+                                            desc: 'Dynamic stretching and strapping to ensure players are physically primed before the whistle blows.',
+                                            icon: <Target size={24} />
+                                        },
+                                        { 
+                                            time: 'Sideline', 
+                                            title: 'Intermission Triage', 
+                                            desc: 'Rapid soft-tissue release and mobility checks between sets or halves to maintain peak output.',
+                                            icon: <ShieldCheck size={24} />
+                                        },
+                                        { 
+                                            time: 'Post-Match', 
+                                            title: 'Recovery Sanctuary', 
+                                            desc: 'Deep flush massage and cryo-compression to reduce soreness and accelerate readiness for the next round.',
+                                            icon: <Stethoscope size={24} />
+                                        }
+                                    ].map((point, idx) => (
+                                        <div key={idx} className="flex flex-col md:flex-row gap-8 items-start">
+                                            <div className="w-full md:w-1/4">
+                                                <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#1B4332]">{point.time}</span>
+                                                <div className="h-px bg-[#E5E4E2] w-full mt-4"></div>
+                                            </div>
+                                            <div className="w-full md:w-3/4 flex gap-6">
+                                                <div className="p-3 bg-[#FAF9F6] rounded-full h-fit text-[#1B4332]">
+                                                    {point.icon}
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-2xl font-serif mb-3 italic">{point.title}</h3>
+                                                    <p className="text-gray-600 max-w-xl leading-relaxed">{point.desc}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </Section>
+                            {/* Placement & Flow */}
+                            <Section className="bg-[#FAF9F6]">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                    <div className="bg-white p-10 border border-[#E5E4E2]">
+                                        <h4 className="text-xs font-bold uppercase tracking-widest mb-6">Sports Protocol</h4>
+                                        <ul className="space-y-4">
+                                            <li className="flex items-start gap-3 text-sm text-gray-600">
+                                                <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
+                                                <span><strong>Event Types:</strong> Tennis, Padel, Marathons, Triathlons.</span>
+                                            </li>
+                                            <li className="flex items-start gap-3 text-sm text-gray-600">
+                                                <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
+                                                <span><strong>Clinical Focus:</strong> Acute injury screening & immediate fatigue management.</span>
+                                            </li>
+                                            <li className="flex items-start gap-3 text-sm text-gray-600">
+                                                <CheckCircle2 size={18} className="text-[#1B4332] shrink-0" />
+                                                <span><strong>Setup:</strong> Field-side medical tents or VIP player lounges.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-[#1B4332] p-10 text-white flex flex-col justify-center">
+                                        <h4 className="text-xs font-bold uppercase tracking-widest mb-6 opacity-70">Tech Enhancements</h4>
+                                        <p className="font-serif text-xl mb-6">Bring professional-grade recovery technology to your amateur field.</p>
+                                        <ul className="text-sm space-y-2 opacity-90 mb-8">
+                                            <li>• Normatec Air Compression</li>
+                                            <li>• Percussive Therapy (Theragun)</li>
+                                            <li>• Kinesiology Taping Station</li>
+                                        </ul>
+                                        <Button variant="outline" className="text-white border-white hover:text-black" onClick={() => navigate('contact')}>Equip Your Event</Button>
+                                    </div>
+                                </div>
+                            </Section>
+                        </div>
+                    )}
+                </div>
+            );
+        };
 
         // --- Page: Packages ---
         const PackagesPage = ({ navigate }) => (
@@ -601,6 +738,7 @@
                                 </div>
                                 <select name="eventType" className="w-full bg-[#FAF9F6] border-b border-[#E5E4E2] p-4 text-sm focus:outline-none focus:border-[#1B4332] transition-colors">
                                     <option>Event Type: Club Corporate Golf Day</option>
+                                    <option>Event Type: Premium Sports</option>
                                     <option>Event Type: Conference-Linked Outing</option>
                                     <option>Event Type: Other</option>
                                 </select>
@@ -636,7 +774,6 @@
             );
         };
 
-
         // --- Main App Controller ---
         function App() {
             const [currentPage, setCurrentPage] = useState('home');
@@ -657,7 +794,9 @@
 
             const NavLinks = () => (
                 <>
-                    {['home', 'golf-days', 'packages', 'standards', 'about'].map(page => (
+                    {/* Updated Link Name from 'golf-days' to 'deployment' visually, but keeping page ID same for simplicity or updating if preferred. 
+                        Let's update the ID to 'deployment' for consistency. */}
+                    {['home', 'deployment', 'packages', 'standards', 'about'].map(page => (
                         <button 
                             key={page}
                             onClick={() => navigate(page)}
@@ -705,7 +844,8 @@
                     {/* Main Content Router */}
                     <main>
                         {currentPage === 'home' && <HomePage navigate={navigate} />}
-                        {currentPage === 'golf-days' && <GolfDaysPage navigate={navigate} />}
+                        {/* Updated Page ID Check */}
+                        {currentPage === 'deployment' && <GolfDaysPage navigate={navigate} />}
                         {currentPage === 'packages' && <PackagesPage navigate={navigate} />}
                         {currentPage === 'standards' && <StandardsPage />}
                         {currentPage === 'about' && <AboutPage />}
@@ -725,7 +865,8 @@
                                 <div>
                                     <h5 className="text-[10px] uppercase tracking-widest font-bold mb-6">Navigation</h5>
                                     <div className="flex flex-col gap-3 text-xs text-gray-500">
-                                        <button onClick={() => navigate('golf-days')} className="hover:text-black w-fit">Golf Days</button>
+                                        {/* Updated Footer Link */}
+                                        <button onClick={() => navigate('deployment')} className="hover:text-black w-fit">Deployment</button>
                                         <button onClick={() => navigate('packages')} className="hover:text-black w-fit">Packages</button>
                                         <button onClick={() => navigate('standards')} className="hover:text-black w-fit">Standards</button>
                                         <button onClick={() => navigate('about')} className="hover:text-black w-fit">About</button>
