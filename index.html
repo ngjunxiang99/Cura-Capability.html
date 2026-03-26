@@ -230,7 +230,48 @@
                       </p>
                     </div>
                   </div>
+                
+                {/* Timeline Component */}
                 </Section>
+                    <Section className="bg-white">
+                        <div className="space-y-16">
+                            {[
+                                { 
+                                    time: 'Pre-Game', 
+                                    title: 'Performance Activation', 
+                                    desc: 'Dynamic stretching and strapping to ensure players are physically primed before the whistle blows.',
+                                    icon: <Target size={24} />
+                                },
+                                { 
+                                    time: 'Sideline', 
+                                    title: 'Intermission Triage', 
+                                    desc: 'Rapid soft-tissue release and mobility checks between sets or halves to maintain peak output.',
+                                    icon: <ShieldCheck size={24} />
+                                },
+                                { 
+                                    time: 'Post-Match', 
+                                    title: 'Recovery Sanctuary', 
+                                    desc: 'Deep flush massage and cryo-compression to reduce soreness and accelerate readiness for the next round.',
+                                    icon: <Stethoscope size={24} />
+                                }
+                            ].map((point, idx) => (
+                                <div key={idx} className="flex flex-col md:flex-row gap-8 items-start">
+                                    <div className="w-full md:w-1/4">
+                                        <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#1B4332]">{point.time}</span>
+                                        <div className="h-px bg-[#E5E4E2] w-full mt-4"></div>
+                                    </div>
+                                    <div className="w-full md:w-3/4 flex gap-6">
+                                        <div className="p-3 bg-[#FAF9F6] rounded-full h-fit text-[#1B4332]">
+                                            {point.icon}
+                                        </div>
+                                        <div>
+                                            <h3 className="text-2xl font-serif mb-3 italic">{point.title}</h3>
+                                            <p className="text-gray-600 max-w-xl leading-relaxed">{point.desc}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
 
                 {/* Packages Preview */}
                 <Section className="bg-[#FAF9F6]">
