@@ -234,24 +234,28 @@
                 {/* Timeline Component */}
                 </Section>
                     <Section className="bg-white">
+                        {/* Header added for Timeline */}
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-5xl font-serif italic text-[#1B4332]">Components</h2>
+                        </div>
                         <div className="space-y-16">
                             {[
                                 { 
                                     time: 'Pre-Game', 
                                     title: 'Performance Activation', 
-                                    desc: 'Dynamic stretching and strapping to ensure players are physically primed before the whistle blows.',
+                                    desc: 'Activity-specific guided warm-ups, assisted stretching, and sports taping to optimise readiness, enhance performance, and reduce injury risk.',
                                     icon: <Target size={24} />
                                 },
                                 { 
                                     time: 'Sideline', 
                                     title: 'Intermission Triage', 
-                                    desc: 'Rapid soft-tissue release and mobility checks between sets or halves to maintain peak output.',
+                                    desc: 'Rapid mobility resets and targeted soft-tissue work to maintain comfort, movement quality, and performance throughout play.',
                                     icon: <ShieldCheck size={24} />
                                 },
                                 { 
                                     time: 'Post-Match', 
                                     title: 'Recovery Sanctuary', 
-                                    desc: 'Deep flush massage and cryo-compression to reduce soreness and accelerate readiness for the next round.',
+                                    desc: 'A clinically led, hospitality-grade recovery experience designed to reduce soreness, manage minor physical complaints, and help guests feel restored, supported, and ready for post-event engagements, or next events.',
                                     icon: <Stethoscope size={24} />
                                 }
                             ].map((point, idx) => (
