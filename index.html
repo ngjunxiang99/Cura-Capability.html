@@ -87,35 +87,6 @@
             border: 'border-[#E5E4E2]'
         };
 
-        const TEAM_MEMBERS = [
-            {
-                name: 'Lawerance',
-                role: 'Clinical Lead Physiotherapist',
-                image: 'Clinical Lead Physiotherapist.png',
-                alt: 'Portrait of Clinical Lead Physiotherapist',
-                desc: 'Leads clinical governance and treatment quality, ensuring all interventions are evidence-based and event-appropriate.'
-            },
-            {
-                name: 'Si Min',
-                role: 'Senior Recovery Specialist',
-                image: 'Senior Recovery Specialist 1.png',
-                alt: 'Portrait of Senior Recovery Specialist 1',
-                desc: 'Supports guests with guided recovery protocols including compression, mobility, and post-round reset routines.'
-            },
-            {
-                name: 'Jun Yi',
-                role: 'Event Operations Lead',
-                image: 'Event Operations Lead.png',
-                alt: 'Portrait of Event Operations Lead',
-                desc: 'Coordinates setup, guest flow, and on-ground operations to keep the lounge experience smooth throughout the day.'
-            }
-        ];
-
-        const withFallback = (fallback) => (e) => {
-            e.target.onerror = null;
-            e.target.src = fallback;
-        };
-
         // --- Components ---
         const Section = ({ children, className = "", id = "" }) => (
             <section id={id} className={`py-16 md:py-24 px-6 md:px-12 ${className}`}>
@@ -718,7 +689,6 @@
                            <img 
                             src="Cura Recovery Lounge.png" 
                             onError={(e) => {e.target.src = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop'}}
-                            onError={withFallback(FALLBACK_IMAGES.about)}
                             className="absolute inset-0 w-full h-full object-cover grayscale opacity-80 hover:scale-105 transition-transform duration-700"
                             alt="Physiotherapy hands"
                           />
@@ -740,31 +710,6 @@
                         <div>
                             <h4 className="text-lg uppercase tracking-widest mb-4">Precision</h4>
                             <p className="text-sm opacity-80">Targeted, high-impact protocols for efficient recovery.</p>
-                        </div>
-                    </div>
-                </Section>
-
-                <Section>
-                    <div className="max-w-5xl">
-                        <div className="text-center mb-12">
-                            <h3 className="text-3xl md:text-5xl font-serif italic text-[#1B4332] mb-4">Meet the Team</h3>
-                            <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                                Meet the people behind every CURA deployment—clinically grounded, hospitality-minded, and trusted by event organizers.
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {TEAM_MEMBERS.map((member) => (
-                                <div key={member.name} className="bg-white border border-[#E5E4E2] overflow-hidden">
-                                    <img src={member.image} onError={withFallback(FALLBACK_IMAGES.team)} alt={member.alt} loading="lazy" className="w-full h-64 object-cover" />
-                                    <div className="p-6">
-                                        <p className="text-xs uppercase tracking-[0.18em] text-gray-400 mb-2">CURA Team</p>
-                                        <h4 className="text-xl font-serif">{member.name}</h4>
-                                        <p className="text-xs uppercase tracking-widest text-[#1B4332] mt-2 mb-3">{member.role}</p>
-                                        <p className="text-sm text-gray-600 leading-relaxed">{member.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
                         </div>
                     </div>
                 </Section>
