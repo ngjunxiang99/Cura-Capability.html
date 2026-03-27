@@ -689,6 +689,7 @@
                            <img 
                             src="Cura Recovery Lounge.png" 
                             onError={(e) => {e.target.src = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop'}}
+                            onError={withFallback(FALLBACK_IMAGES.about)}
                             className="absolute inset-0 w-full h-full object-cover grayscale opacity-80 hover:scale-105 transition-transform duration-700"
                             alt="Physiotherapy hands"
                           />
@@ -710,6 +711,31 @@
                         <div>
                             <h4 className="text-lg uppercase tracking-widest mb-4">Precision</h4>
                             <p className="text-sm opacity-80">Targeted, high-impact protocols for efficient recovery.</p>
+                        </div>
+                    </div>
+                </Section>
+
+                <Section>
+                    <div className="max-w-5xl">
+                        <div className="text-center mb-12">
+                            <h3 className="text-3xl md:text-5xl font-serif italic text-[#1B4332] mb-4">Meet the Team</h3>
+                            <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                                Meet the people behind every CURA deployment—clinically grounded, hospitality-minded, and trusted by event organizers.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {TEAM_MEMBERS.map((member) => (
+                                <div key={member.name} className="bg-white border border-[#E5E4E2] overflow-hidden">
+                                    <img src={member.image} onError={withFallback(FALLBACK_IMAGES.team)} alt={member.alt} loading="lazy" className="w-full h-64 object-cover" />
+                                    <div className="p-6">
+                                        <p className="text-xs uppercase tracking-[0.18em] text-gray-400 mb-2">CURA Team</p>
+                                        <h4 className="text-xl font-serif">{member.name}</h4>
+                                        <p className="text-xs uppercase tracking-widest text-[#1B4332] mt-2 mb-3">{member.role}</p>
+                                        <p className="text-sm text-gray-600 leading-relaxed">{member.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </Section>
