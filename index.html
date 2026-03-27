@@ -87,6 +87,35 @@
             border: 'border-[#E5E4E2]'
         };
 
+        const TEAM_MEMBERS = [
+            {
+                name: 'Lawerance',
+                role: 'Clinical Lead Physiotherapist',
+                image: 'Clinical Lead Physiotherapist.png',
+                alt: 'Portrait of Clinical Lead Physiotherapist',
+                desc: 'Leads clinical governance and treatment quality, ensuring all interventions are evidence-based and event-appropriate.'
+            },
+            {
+                name: 'Si Min',
+                role: 'Senior Recovery Specialist',
+                image: 'Senior Recovery Specialist 1.png',
+                alt: 'Portrait of Senior Recovery Specialist 1',
+                desc: 'Supports guests with guided recovery protocols including compression, mobility, and post-round reset routines.'
+            },
+            {
+                name: 'Jun Yi',
+                role: 'Event Operations Lead',
+                image: 'Event Operations Lead.png',
+                alt: 'Portrait of Event Operations Lead',
+                desc: 'Coordinates setup, guest flow, and on-ground operations to keep the lounge experience smooth throughout the day.'
+            }
+        ];
+
+        const withFallback = (fallback) => (e) => {
+            e.target.onerror = null;
+            e.target.src = fallback;
+        };
+
         // --- Components ---
         const Section = ({ children, className = "", id = "" }) => (
             <section id={id} className={`py-16 md:py-24 px-6 md:px-12 ${className}`}>
